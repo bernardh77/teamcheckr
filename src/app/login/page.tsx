@@ -26,9 +26,9 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-[#2C3333] py-12 px-2">
+    <main className="min-h-screen w-full flex items-center justify-center bg-[#2C3333] py-12 px-4">
       <form
-        className="bg-white rounded-2xl shadow-lg px-8 py-10 w-full max-w-md mx-auto"
+        className="bg-white rounded-2xl shadow-lg px-6 py-8 w-full max-w-[450px] mx-auto mt-16"
         onSubmit={handleSubmit}
         noValidate
       >
@@ -61,7 +61,7 @@ export default function LoginPage() {
           />
           <button
             type="button"
-            className="absolute right-3 top-9 text-sm text-[#395B64]"
+            className="absolute right-2 top-10 text-sm text-[#395B64]"
             tabIndex={-1}
             onClick={() => setShowPassword((v) => !v)}
           >

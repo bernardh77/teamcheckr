@@ -64,12 +64,12 @@ export default function SignUpPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center bg-[#2C3333] py-12 px-4">
+    <main className="min-h-screen w-full flex items-center justify-center bg-[#2C3333] py-12 px-4">
     <form
-        className="bg-white rounded-2xl shadow-lg px-8 py-10 w-full max-w-xl sm:max-w-2xl mx-auto mt-16"
+        className="bg-white rounded-2xl shadow-lg px-6 py-8 w-full max-w-[450px] mx-auto mt-16"
         onSubmit={handleSubmit}
         noValidate
-      >
+    >
         <h1 className="text-2xl font-bold text-center text-[#2C3333] mb-6">Create your Account</h1>
         <div className="mb-4">
           <label className="block font-medium mb-1 text-[#2C3333]">Full Name</label>
@@ -78,7 +78,7 @@ export default function SignUpPage() {
             name="name"
             type="text"
             autoComplete="name"
-            className={`w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#395B64] ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+            className={`w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#395B64] text-[#2C3333] placeholder-gray-400 ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
             value={form.name}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -93,12 +93,12 @@ export default function SignUpPage() {
             name="email"
             type="email"
             autoComplete="email"
-            className={`w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#395B64] ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+            className={`w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#395B64] text-[#2C3333] placeholder-gray-400 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
             value={form.email}
             onChange={handleChange}
             onBlur={handleBlur}
             required
-          />
+            />
           {errors.email && <p className="text-red-500 text-xs mt-1">Valid email is required.</p>}
         </div>
         <div className="mb-4 relative">
@@ -108,7 +108,7 @@ export default function SignUpPage() {
             name="password"
             type={showPassword ? "text" : "password"}
             autoComplete="new-password"
-            className={`w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#395B64] ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+            className={`w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#395B64] text-[#2C3333] placeholder-gray-400 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
             value={form.password}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -116,7 +116,7 @@ export default function SignUpPage() {
           />
           <button
             type="button"
-            className="absolute right-3 top-9 text-sm text-[#395B64]"
+            className="absolute right-2 top-10 text-sm text-[#395B64]"
             tabIndex={-1}
             onClick={() => setShowPassword((v) => !v)}
           >
@@ -137,7 +137,7 @@ export default function SignUpPage() {
           </div>
           {/* Password checklist */}
           <ul className="text-xs mt-2 space-y-1">
-            <li className="flex items-center gap-1">
+            <li className={`flex items-center gap-1 ${strengthChecks[0] ? "text-green-600" : "text-[#2C3333]"}`}>
               {strengthChecks[0] ? (
                 <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               ) : (
@@ -145,7 +145,7 @@ export default function SignUpPage() {
               )}
               At least 8 characters
             </li>
-            <li className="flex items-center gap-1">
+            <li className={`flex items-center gap-1 ${strengthChecks[1] ? "text-green-600" : "text-[#2C3333]"}`}>
               {strengthChecks[1] ? (
                 <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               ) : (
@@ -153,7 +153,7 @@ export default function SignUpPage() {
               )}
               Uppercase letter
             </li>
-            <li className="flex items-center gap-1">
+            <li className={`flex items-center gap-1 ${strengthChecks[2] ? "text-green-600" : "text-[#2C3333]"}`}>
               {strengthChecks[2] ? (
                 <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               ) : (
@@ -161,7 +161,7 @@ export default function SignUpPage() {
               )}
               Lowercase letter
             </li>
-            <li className="flex items-center gap-1">
+            <li className={`flex items-center gap-1 ${strengthChecks[3] ? "text-green-600" : "text-[#2C3333]"}`}>
               {strengthChecks[3] ? (
                 <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               ) : (
@@ -169,7 +169,7 @@ export default function SignUpPage() {
               )}
               Number
             </li>
-            <li className="flex items-center gap-1">
+            <li className={`flex items-center gap-1 ${strengthChecks[4] ? "text-green-600" : "text-[#2C3333]"}`}>
               {strengthChecks[4] ? (
                 <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               ) : (
@@ -187,7 +187,7 @@ export default function SignUpPage() {
             name="confirmPassword"
             type={showConfirm ? "text" : "password"}
             autoComplete="new-password"
-            className={`w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#395B64] ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'}`}
+            className={`w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#395B64] text-[#2C3333] placeholder-gray-400 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'}`}
             value={form.confirmPassword}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -195,7 +195,7 @@ export default function SignUpPage() {
           />
           <button
             type="button"
-            className="absolute right-3 top-9 text-sm text-[#395B64]"
+            className="absolute right-2 top-10 text-sm text-[#395B64]"
             tabIndex={-1}
             onClick={() => setShowConfirm((v) => !v)}
           >
