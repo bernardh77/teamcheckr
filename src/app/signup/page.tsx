@@ -66,7 +66,7 @@ export default function SignUpPage() {
   return (
     <main className="min-h-screen w-full flex items-center justify-center bg-[#2C3333] py-12 px-4">
     <form
-        className="bg-white rounded-2xl shadow-lg px-6 py-8 w-full max-w-[450px] mx-auto mt-16"
+        className="bg-white rounded-2xl shadow-lg px-6 py-8 w-full max-w-[450px] mx-auto mt-16 bg-red-200"
         onSubmit={handleSubmit}
         noValidate
     >
