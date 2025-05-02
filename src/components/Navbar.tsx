@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Navbar() {
   return (
-    <nav className="bg-[#34403A]/90 backdrop-blur-md fixed w-full z-50 text-white">
+    <nav className="bg-[#34403A] fixed w-full z-50 text-white">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -12,12 +12,12 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/features" className="hover:text-[#A5C9CA] transition-colors">
+            {/* <Link href="/features" className="hover:text-[#A5C9CA] transition-colors">
               Features
             </Link>
             <Link href="/testimonials" className="hover:text-[#A5C9CA] transition-colors">
               Testimonials
-            </Link>
+            </Link> */}
             <Link href="/about" className="hover:text-[#A5C9CA] transition-colors">
               About
             </Link>

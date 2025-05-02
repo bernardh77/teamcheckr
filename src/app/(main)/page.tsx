@@ -72,7 +72,7 @@ export default function Home() {
       <section className="py-20 px-4 bg-white">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-4xl font-bold text-[#2C3333] mb-4">What Students Say About TeamCheckr</h2>
-          <p className="text-[#395B64] text-lg">Join thousands of students who've made group projects less stressful and more successful.</p>
+          <p className="text-[#395B64] text-lg">Join thousands of students who&apos;ve made group projects less stressful and more successful.</p>
         </div>
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Testimonial 1 */}
