@@ -1,103 +1,128 @@
-import Image from "next/image";
+import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-[#2C3333] text-white min-h-screen flex flex-col justify-center items-center px-4 pt-16">
+        <div className="max-w-6xl mx-auto text-center">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            Smarter Group Projects Start Here
+          </h1>
+          <p className="text-xl md:text-2xl text-[#A5C9CA] mb-8">
+            TeamCheckr helps university students team up smarter — match by course, collaborate better, and review experiences anonymously.
+          </p>
+          <div className="space-x-4">
+            <Link 
+              href="/signup" 
+              className="bg-[#395B64] hover:bg-[#A5C9CA] text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
+            >
+              Get Started
+            </Link>
+            <Link 
+              href="/login" 
+              className="border-2 border-[#A5C9CA] text-[#A5C9CA] hover:bg-[#A5C9CA] hover:text-[#2C3333] px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
+            >
+              Login
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 px-4 bg-[#E7F6F2]">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-16 text-[#2C3333]">
+            Why Choose TeamCheckr?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <div className="w-16 h-16 bg-[#A5C9CA] rounded-full flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-[#2C3333]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-4 text-[#2C3333]">Smart Matching</h3>
+              <p className="text-[#395B64]">Find compatible groupmates based on skills, availability, and course requirements.</p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <div className="w-16 h-16 bg-[#A5C9CA] rounded-full flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-[#2C3333]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-4 text-[#2C3333]">Anonymous Reviews</h3>
+              <p className="text-[#395B64]">Share honest feedback about your group experience while maintaining privacy.</p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <div className="w-16 h-16 bg-[#A5C9CA] rounded-full flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-[#2C3333]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-4 text-[#2C3333]">Profile System</h3>
+              <p className="text-[#395B64]">Showcase your skills, experience, and availability to find the perfect match.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <h2 className="text-4xl font-bold text-[#2C3333] mb-4">What Students Say About TeamCheckr</h2>
+          <p className="text-[#395B64] text-lg">Join thousands of students who've made group projects less stressful and more successful.</p>
+        </div>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Testimonial 1 */}
+          <div className="bg-[#F8FAFC] rounded-2xl shadow p-8 flex flex-col items-center text-center">
+            <Image src={`https://api.dicebear.com/7.x/notionists/svg?seed=kaynejuro`} alt="Kayne Juro" width={80} height={80} className="w-20 h-20 rounded-full mb-4" unoptimized />
+            <h3 className="font-bold text-lg text-[#2C3333] mb-1">Kayne Juro</h3>
+            <p className="text-[#395B64] text-sm mb-0">Computer Science Student</p>
+            <p className="text-[#395B64] text-sm mb-2">Singapore Institute of Management</p>
+            <p className="text-[#395B64] text-base mb-2">&quot;The connections you make at TeamCheckr are unparalleled, I found the best groupmates!&quot;</p>
+          </div>
+          {/* Testimonial 2 */}
+          <div className="bg-[#F8FAFC] rounded-2xl shadow p-8 flex flex-col items-center text-center">
+            <Image src={`https://api.dicebear.com/7.x/notionists/svg?seed=nickwijaya`} alt="Nick Wijaya" width={80} height={80} className="w-20 h-20 rounded-full mb-4" unoptimized />
+            <h3 className="font-bold text-lg text-[#2C3333] mb-1">Nick Wijaya</h3>
+            <p className="text-[#395B64] text-sm mb-0">Computer Science Student</p>
+            <p className="text-[#395B64] text-sm mb-2">Swinburne University</p>
+            <p className="text-[#395B64] text-base">&quot;TeamCheckr increased my motivation, my skills, and my network!&quot;</p>
+          </div>
+          {/* Testimonial 3 */}
+          <div className="bg-[#F8FAFC] rounded-2xl shadow p-8 flex flex-col items-center text-center">
+            <Image src={`https://api.dicebear.com/7.x/notionists/svg?seed=jonathanluhur`} alt="Jonathan Luhur" width={80} height={80} className="w-20 h-20 rounded-full mb-4" unoptimized />
+            <h3 className="font-bold text-lg text-[#2C3333] mb-1">Jonathan Luhur</h3>
+            <p className="text-[#395B64] text-sm mb-0">Mechatronics Student</p>
+            <p className="text-[#395B64] text-sm mb-2">University of Technology Sydney</p>
+            <p className="text-[#395B64] text-base">&quot;The pessimist complains about the wind; the optimist expects it to change; the realist adjusts the sails.&quot;</p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Footer
+      <footer className="bg-[#2C3333] text-white py-12 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-6">Ready to Find Your Perfect Group?</h2>
+          <p className="text-[#A5C9CA] mb-8">Join thousands of students who have found their ideal study partners.</p>
+          <div className="space-x-4">
+            <Link 
+              href="/signup" 
+              className="bg-[#395B64] hover:bg-[#A5C9CA] text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
+            >
+              Sign Up Now
+            </Link>
+            <Link 
+              href="/login" 
+              className="border-2 border-[#A5C9CA] text-[#A5C9CA] hover:bg-[#A5C9CA] hover:text-[#2C3333] px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
+            >
+              Login
+            </Link>
+          </div>
+        </div>
+      </footer> */}
+    </main>
+  )
 }
