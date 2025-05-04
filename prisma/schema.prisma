@@ -19,11 +19,35 @@ model User {
   name          String
   email         String     @unique
   passwordHash  String
+  profilePicUrl String?
+  bio         String?
+  experiences Experience[] // 👈 one-to-many
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 
   reviewsGiven  Review[]   @relation("ReviewsGiven")
   reviewsReceived Review[] @relation("ReviewsReceived")
+}
+
+model Experience {
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  title       String
+  type        ExperienceType
+  description String?
+  startDate   DateTime
+  endDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum ExperienceType {
+  JOB
+  PROJECT
+  INTERNSHIP
+  VOLUNTEER
+  OTHER
 }
 
 model Course {

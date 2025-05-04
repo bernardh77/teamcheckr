@@ -39,8 +39,8 @@ A modern, mobile-first platform to help university students find and review grou
    This will create the database tables as defined in `prisma/schema.prisma`.
 
 5. **Start the development server:**
-   ```bash
-   npm run dev
+```bash
+npm run dev
    ```
    The app will be available at [http://localhost:3000](http://localhost:3000).
 

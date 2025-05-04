@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Experience
+ * 
+ */
+export type Experience = $Result.DefaultSelection<Prisma.$ExperiencePayload>
+/**
  * Model Course
  * 
  */
@@ -28,6 +33,26 @@ export type Course = $Result.DefaultSelection<Prisma.$CoursePayload>
  * 
  */
 export type Review = $Result.DefaultSelection<Prisma.$ReviewPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const ExperienceType: {
+  JOB: 'JOB',
+  PROJECT: 'PROJECT',
+  INTERNSHIP: 'INTERNSHIP',
+  VOLUNTEER: 'VOLUNTEER',
+  OTHER: 'OTHER'
+};
+
+export type ExperienceType = (typeof ExperienceType)[keyof typeof ExperienceType]
+
+}
+
+export type ExperienceType = $Enums.ExperienceType
+
+export const ExperienceType: typeof $Enums.ExperienceType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -163,6 +188,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.experience`: Exposes CRUD operations for the **Experience** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Experiences
+    * const experiences = await prisma.experience.findMany()
+    * ```
+    */
+  get experience(): Prisma.ExperienceDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.course`: Exposes CRUD operations for the **Course** model.
@@ -624,6 +659,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Experience: 'Experience',
     Course: 'Course',
     Review: 'Review'
   };
@@ -644,7 +680,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "course" | "review"
+      modelProps: "user" | "experience" | "course" | "review"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -719,6 +755,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Experience: {
+        payload: Prisma.$ExperiencePayload<ExtArgs>
+        fields: Prisma.ExperienceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExperienceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExperienceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          findFirst: {
+            args: Prisma.ExperienceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExperienceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          findMany: {
+            args: Prisma.ExperienceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>[]
+          }
+          create: {
+            args: Prisma.ExperienceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          createMany: {
+            args: Prisma.ExperienceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ExperienceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>[]
+          }
+          delete: {
+            args: Prisma.ExperienceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          update: {
+            args: Prisma.ExperienceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          deleteMany: {
+            args: Prisma.ExperienceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExperienceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ExperienceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>[]
+          }
+          upsert: {
+            args: Prisma.ExperienceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          aggregate: {
+            args: Prisma.ExperienceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExperience>
+          }
+          groupBy: {
+            args: Prisma.ExperienceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExperienceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExperienceCountArgs<ExtArgs>
+            result: $Utils.Optional<ExperienceCountAggregateOutputType> | number
           }
         }
       }
@@ -955,6 +1065,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    experience?: ExperienceOmit
     course?: CourseOmit
     review?: ReviewOmit
   }
@@ -1051,11 +1162,13 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
+    experiences: number
     reviewsGiven: number
     reviewsReceived: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    experiences?: boolean | UserCountOutputTypeCountExperiencesArgs
     reviewsGiven?: boolean | UserCountOutputTypeCountReviewsGivenArgs
     reviewsReceived?: boolean | UserCountOutputTypeCountReviewsReceivedArgs
   }
@@ -1069,6 +1182,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the UserCountOutputType
      */
     select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountExperiencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExperienceWhereInput
   }
 
   /**
@@ -1136,6 +1256,8 @@ export namespace Prisma {
     name: string | null
     email: string | null
     passwordHash: string | null
+    profilePicUrl: string | null
+    bio: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1145,6 +1267,8 @@ export namespace Prisma {
     name: string | null
     email: string | null
     passwordHash: string | null
+    profilePicUrl: string | null
+    bio: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1154,6 +1278,8 @@ export namespace Prisma {
     name: number
     email: number
     passwordHash: number
+    profilePicUrl: number
+    bio: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1165,6 +1291,8 @@ export namespace Prisma {
     name?: true
     email?: true
     passwordHash?: true
+    profilePicUrl?: true
+    bio?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1174,6 +1302,8 @@ export namespace Prisma {
     name?: true
     email?: true
     passwordHash?: true
+    profilePicUrl?: true
+    bio?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1183,6 +1313,8 @@ export namespace Prisma {
     name?: true
     email?: true
     passwordHash?: true
+    profilePicUrl?: true
+    bio?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1265,6 +1397,8 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    profilePicUrl: string | null
+    bio: string | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1291,8 +1425,11 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     passwordHash?: boolean
+    profilePicUrl?: boolean
+    bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    experiences?: boolean | User$experiencesArgs<ExtArgs>
     reviewsGiven?: boolean | User$reviewsGivenArgs<ExtArgs>
     reviewsReceived?: boolean | User$reviewsReceivedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1303,6 +1440,8 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     passwordHash?: boolean
+    profilePicUrl?: boolean
+    bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1312,6 +1451,8 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     passwordHash?: boolean
+    profilePicUrl?: boolean
+    bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1321,12 +1462,15 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     passwordHash?: boolean
+    profilePicUrl?: boolean
+    bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "profilePicUrl" | "bio" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    experiences?: boolean | User$experiencesArgs<ExtArgs>
     reviewsGiven?: boolean | User$reviewsGivenArgs<ExtArgs>
     reviewsReceived?: boolean | User$reviewsReceivedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1337,6 +1481,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      experiences: Prisma.$ExperiencePayload<ExtArgs>[]
       reviewsGiven: Prisma.$ReviewPayload<ExtArgs>[]
       reviewsReceived: Prisma.$ReviewPayload<ExtArgs>[]
     }
@@ -1345,6 +1490,8 @@ export namespace Prisma {
       name: string
       email: string
       passwordHash: string
+      profilePicUrl: string | null
+      bio: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -1741,6 +1888,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    experiences<T extends User$experiencesArgs<ExtArgs> = {}>(args?: Subset<T, User$experiencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviewsGiven<T extends User$reviewsGivenArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviewsReceived<T extends User$reviewsReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -1776,6 +1924,8 @@ export namespace Prisma {
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
+    readonly profilePicUrl: FieldRef<"User", 'String'>
+    readonly bio: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -2166,6 +2316,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.experiences
+   */
+  export type User$experiencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceInclude<ExtArgs> | null
+    where?: ExperienceWhereInput
+    orderBy?: ExperienceOrderByWithRelationInput | ExperienceOrderByWithRelationInput[]
+    cursor?: ExperienceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExperienceScalarFieldEnum | ExperienceScalarFieldEnum[]
+  }
+
+  /**
    * User.reviewsGiven
    */
   export type User$reviewsGivenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2229,6 +2403,1116 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Experience
+   */
+
+  export type AggregateExperience = {
+    _count: ExperienceCountAggregateOutputType | null
+    _min: ExperienceMinAggregateOutputType | null
+    _max: ExperienceMaxAggregateOutputType | null
+  }
+
+  export type ExperienceMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    type: $Enums.ExperienceType | null
+    description: string | null
+    startDate: Date | null
+    endDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExperienceMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    type: $Enums.ExperienceType | null
+    description: string | null
+    startDate: Date | null
+    endDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExperienceCountAggregateOutputType = {
+    id: number
+    userId: number
+    title: number
+    type: number
+    description: number
+    startDate: number
+    endDate: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ExperienceMinAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    type?: true
+    description?: true
+    startDate?: true
+    endDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ExperienceMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    type?: true
+    description?: true
+    startDate?: true
+    endDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ExperienceCountAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    type?: true
+    description?: true
+    startDate?: true
+    endDate?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ExperienceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Experience to aggregate.
+     */
+    where?: ExperienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Experiences to fetch.
+     */
+    orderBy?: ExperienceOrderByWithRelationInput | ExperienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExperienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Experiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Experiences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Experiences
+    **/
+    _count?: true | ExperienceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExperienceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExperienceMaxAggregateInputType
+  }
+
+  export type GetExperienceAggregateType<T extends ExperienceAggregateArgs> = {
+        [P in keyof T & keyof AggregateExperience]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExperience[P]>
+      : GetScalarType<T[P], AggregateExperience[P]>
+  }
+
+
+
+
+  export type ExperienceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExperienceWhereInput
+    orderBy?: ExperienceOrderByWithAggregationInput | ExperienceOrderByWithAggregationInput[]
+    by: ExperienceScalarFieldEnum[] | ExperienceScalarFieldEnum
+    having?: ExperienceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ExperienceCountAggregateInputType | true
+    _min?: ExperienceMinAggregateInputType
+    _max?: ExperienceMaxAggregateInputType
+  }
+
+  export type ExperienceGroupByOutputType = {
+    id: string
+    userId: string
+    title: string
+    type: $Enums.ExperienceType
+    description: string | null
+    startDate: Date
+    endDate: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ExperienceCountAggregateOutputType | null
+    _min: ExperienceMinAggregateOutputType | null
+    _max: ExperienceMaxAggregateOutputType | null
+  }
+
+  type GetExperienceGroupByPayload<T extends ExperienceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExperienceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExperienceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExperienceGroupByOutputType[P]>
+            : GetScalarType<T[P], ExperienceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExperienceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    type?: boolean
+    description?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["experience"]>
+
+  export type ExperienceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    type?: boolean
+    description?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["experience"]>
+
+  export type ExperienceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    type?: boolean
+    description?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["experience"]>
+
+  export type ExperienceSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    type?: boolean
+    description?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ExperienceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "type" | "description" | "startDate" | "endDate" | "createdAt" | "updatedAt", ExtArgs["result"]["experience"]>
+  export type ExperienceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ExperienceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ExperienceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ExperiencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Experience"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      title: string
+      type: $Enums.ExperienceType
+      description: string | null
+      startDate: Date
+      endDate: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["experience"]>
+    composites: {}
+  }
+
+  type ExperienceGetPayload<S extends boolean | null | undefined | ExperienceDefaultArgs> = $Result.GetResult<Prisma.$ExperiencePayload, S>
+
+  type ExperienceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExperienceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExperienceCountAggregateInputType | true
+    }
+
+  export interface ExperienceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Experience'], meta: { name: 'Experience' } }
+    /**
+     * Find zero or one Experience that matches the filter.
+     * @param {ExperienceFindUniqueArgs} args - Arguments to find a Experience
+     * @example
+     * // Get one Experience
+     * const experience = await prisma.experience.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExperienceFindUniqueArgs>(args: SelectSubset<T, ExperienceFindUniqueArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Experience that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExperienceFindUniqueOrThrowArgs} args - Arguments to find a Experience
+     * @example
+     * // Get one Experience
+     * const experience = await prisma.experience.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExperienceFindUniqueOrThrowArgs>(args: SelectSubset<T, ExperienceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Experience that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceFindFirstArgs} args - Arguments to find a Experience
+     * @example
+     * // Get one Experience
+     * const experience = await prisma.experience.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExperienceFindFirstArgs>(args?: SelectSubset<T, ExperienceFindFirstArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Experience that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceFindFirstOrThrowArgs} args - Arguments to find a Experience
+     * @example
+     * // Get one Experience
+     * const experience = await prisma.experience.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExperienceFindFirstOrThrowArgs>(args?: SelectSubset<T, ExperienceFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Experiences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Experiences
+     * const experiences = await prisma.experience.findMany()
+     * 
+     * // Get first 10 Experiences
+     * const experiences = await prisma.experience.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const experienceWithIdOnly = await prisma.experience.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ExperienceFindManyArgs>(args?: SelectSubset<T, ExperienceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Experience.
+     * @param {ExperienceCreateArgs} args - Arguments to create a Experience.
+     * @example
+     * // Create one Experience
+     * const Experience = await prisma.experience.create({
+     *   data: {
+     *     // ... data to create a Experience
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExperienceCreateArgs>(args: SelectSubset<T, ExperienceCreateArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Experiences.
+     * @param {ExperienceCreateManyArgs} args - Arguments to create many Experiences.
+     * @example
+     * // Create many Experiences
+     * const experience = await prisma.experience.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExperienceCreateManyArgs>(args?: SelectSubset<T, ExperienceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Experiences and returns the data saved in the database.
+     * @param {ExperienceCreateManyAndReturnArgs} args - Arguments to create many Experiences.
+     * @example
+     * // Create many Experiences
+     * const experience = await prisma.experience.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Experiences and only return the `id`
+     * const experienceWithIdOnly = await prisma.experience.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ExperienceCreateManyAndReturnArgs>(args?: SelectSubset<T, ExperienceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Experience.
+     * @param {ExperienceDeleteArgs} args - Arguments to delete one Experience.
+     * @example
+     * // Delete one Experience
+     * const Experience = await prisma.experience.delete({
+     *   where: {
+     *     // ... filter to delete one Experience
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExperienceDeleteArgs>(args: SelectSubset<T, ExperienceDeleteArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Experience.
+     * @param {ExperienceUpdateArgs} args - Arguments to update one Experience.
+     * @example
+     * // Update one Experience
+     * const experience = await prisma.experience.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExperienceUpdateArgs>(args: SelectSubset<T, ExperienceUpdateArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Experiences.
+     * @param {ExperienceDeleteManyArgs} args - Arguments to filter Experiences to delete.
+     * @example
+     * // Delete a few Experiences
+     * const { count } = await prisma.experience.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExperienceDeleteManyArgs>(args?: SelectSubset<T, ExperienceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Experiences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Experiences
+     * const experience = await prisma.experience.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExperienceUpdateManyArgs>(args: SelectSubset<T, ExperienceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Experiences and returns the data updated in the database.
+     * @param {ExperienceUpdateManyAndReturnArgs} args - Arguments to update many Experiences.
+     * @example
+     * // Update many Experiences
+     * const experience = await prisma.experience.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Experiences and only return the `id`
+     * const experienceWithIdOnly = await prisma.experience.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ExperienceUpdateManyAndReturnArgs>(args: SelectSubset<T, ExperienceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Experience.
+     * @param {ExperienceUpsertArgs} args - Arguments to update or create a Experience.
+     * @example
+     * // Update or create a Experience
+     * const experience = await prisma.experience.upsert({
+     *   create: {
+     *     // ... data to create a Experience
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Experience we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExperienceUpsertArgs>(args: SelectSubset<T, ExperienceUpsertArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Experiences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceCountArgs} args - Arguments to filter Experiences to count.
+     * @example
+     * // Count the number of Experiences
+     * const count = await prisma.experience.count({
+     *   where: {
+     *     // ... the filter for the Experiences we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExperienceCountArgs>(
+      args?: Subset<T, ExperienceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExperienceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Experience.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExperienceAggregateArgs>(args: Subset<T, ExperienceAggregateArgs>): Prisma.PrismaPromise<GetExperienceAggregateType<T>>
+
+    /**
+     * Group by Experience.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExperienceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExperienceGroupByArgs['orderBy'] }
+        : { orderBy?: ExperienceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExperienceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExperienceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Experience model
+   */
+  readonly fields: ExperienceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Experience.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ExperienceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Experience model
+   */
+  interface ExperienceFieldRefs {
+    readonly id: FieldRef<"Experience", 'String'>
+    readonly userId: FieldRef<"Experience", 'String'>
+    readonly title: FieldRef<"Experience", 'String'>
+    readonly type: FieldRef<"Experience", 'ExperienceType'>
+    readonly description: FieldRef<"Experience", 'String'>
+    readonly startDate: FieldRef<"Experience", 'DateTime'>
+    readonly endDate: FieldRef<"Experience", 'DateTime'>
+    readonly createdAt: FieldRef<"Experience", 'DateTime'>
+    readonly updatedAt: FieldRef<"Experience", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Experience findUnique
+   */
+  export type ExperienceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceInclude<ExtArgs> | null
+    /**
+     * Filter, which Experience to fetch.
+     */
+    where: ExperienceWhereUniqueInput
+  }
+
+  /**
+   * Experience findUniqueOrThrow
+   */
+  export type ExperienceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceInclude<ExtArgs> | null
+    /**
+     * Filter, which Experience to fetch.
+     */
+    where: ExperienceWhereUniqueInput
+  }
+
+  /**
+   * Experience findFirst
+   */
+  export type ExperienceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceInclude<ExtArgs> | null
+    /**
+     * Filter, which Experience to fetch.
+     */
+    where?: ExperienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Experiences to fetch.
+     */
+    orderBy?: ExperienceOrderByWithRelationInput | ExperienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Experiences.
+     */
+    cursor?: ExperienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Experiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Experiences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Experiences.
+     */
+    distinct?: ExperienceScalarFieldEnum | ExperienceScalarFieldEnum[]
+  }
+
+  /**
+   * Experience findFirstOrThrow
+   */
+  export type ExperienceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceInclude<ExtArgs> | null
+    /**
+     * Filter, which Experience to fetch.
+     */
+    where?: ExperienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Experiences to fetch.
+     */
+    orderBy?: ExperienceOrderByWithRelationInput | ExperienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Experiences.
+     */
+    cursor?: ExperienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Experiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Experiences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Experiences.
+     */
+    distinct?: ExperienceScalarFieldEnum | ExperienceScalarFieldEnum[]
+  }
+
+  /**
+   * Experience findMany
+   */
+  export type ExperienceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceInclude<ExtArgs> | null
+    /**
+     * Filter, which Experiences to fetch.
+     */
+    where?: ExperienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Experiences to fetch.
+     */
+    orderBy?: ExperienceOrderByWithRelationInput | ExperienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Experiences.
+     */
+    cursor?: ExperienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Experiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Experiences.
+     */
+    skip?: number
+    distinct?: ExperienceScalarFieldEnum | ExperienceScalarFieldEnum[]
+  }
+
+  /**
+   * Experience create
+   */
+  export type ExperienceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Experience.
+     */
+    data: XOR<ExperienceCreateInput, ExperienceUncheckedCreateInput>
+  }
+
+  /**
+   * Experience createMany
+   */
+  export type ExperienceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Experiences.
+     */
+    data: ExperienceCreateManyInput | ExperienceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Experience createManyAndReturn
+   */
+  export type ExperienceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * The data used to create many Experiences.
+     */
+    data: ExperienceCreateManyInput | ExperienceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Experience update
+   */
+  export type ExperienceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Experience.
+     */
+    data: XOR<ExperienceUpdateInput, ExperienceUncheckedUpdateInput>
+    /**
+     * Choose, which Experience to update.
+     */
+    where: ExperienceWhereUniqueInput
+  }
+
+  /**
+   * Experience updateMany
+   */
+  export type ExperienceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Experiences.
+     */
+    data: XOR<ExperienceUpdateManyMutationInput, ExperienceUncheckedUpdateManyInput>
+    /**
+     * Filter which Experiences to update
+     */
+    where?: ExperienceWhereInput
+    /**
+     * Limit how many Experiences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Experience updateManyAndReturn
+   */
+  export type ExperienceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * The data used to update Experiences.
+     */
+    data: XOR<ExperienceUpdateManyMutationInput, ExperienceUncheckedUpdateManyInput>
+    /**
+     * Filter which Experiences to update
+     */
+    where?: ExperienceWhereInput
+    /**
+     * Limit how many Experiences to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Experience upsert
+   */
+  export type ExperienceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Experience to update in case it exists.
+     */
+    where: ExperienceWhereUniqueInput
+    /**
+     * In case the Experience found by the `where` argument doesn't exist, create a new Experience with this data.
+     */
+    create: XOR<ExperienceCreateInput, ExperienceUncheckedCreateInput>
+    /**
+     * In case the Experience was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExperienceUpdateInput, ExperienceUncheckedUpdateInput>
+  }
+
+  /**
+   * Experience delete
+   */
+  export type ExperienceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceInclude<ExtArgs> | null
+    /**
+     * Filter which Experience to delete.
+     */
+    where: ExperienceWhereUniqueInput
+  }
+
+  /**
+   * Experience deleteMany
+   */
+  export type ExperienceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Experiences to delete
+     */
+    where?: ExperienceWhereInput
+    /**
+     * Limit how many Experiences to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Experience without action
+   */
+  export type ExperienceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExperienceInclude<ExtArgs> | null
   }
 
 
@@ -4416,11 +5700,28 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     passwordHash: 'passwordHash',
+    profilePicUrl: 'profilePicUrl',
+    bio: 'bio',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const ExperienceScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    title: 'title',
+    type: 'type',
+    description: 'description',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ExperienceScalarFieldEnum = (typeof ExperienceScalarFieldEnum)[keyof typeof ExperienceScalarFieldEnum]
 
 
   export const CourseScalarFieldEnum: {
@@ -4502,6 +5803,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'ExperienceType'
+   */
+  export type EnumExperienceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ExperienceType[]'
+   */
+  export type ListEnumExperienceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -4540,8 +5855,11 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     passwordHash?: StringFilter<"User"> | string
+    profilePicUrl?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    experiences?: ExperienceListRelationFilter
     reviewsGiven?: ReviewListRelationFilter
     reviewsReceived?: ReviewListRelationFilter
   }
@@ -4551,8 +5869,11 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
+    profilePicUrl?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    experiences?: ExperienceOrderByRelationAggregateInput
     reviewsGiven?: ReviewOrderByRelationAggregateInput
     reviewsReceived?: ReviewOrderByRelationAggregateInput
   }
@@ -4565,8 +5886,11 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     passwordHash?: StringFilter<"User"> | string
+    profilePicUrl?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    experiences?: ExperienceListRelationFilter
     reviewsGiven?: ReviewListRelationFilter
     reviewsReceived?: ReviewListRelationFilter
   }, "id" | "email">
@@ -4576,6 +5900,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
+    profilePicUrl?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -4591,8 +5917,85 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     passwordHash?: StringWithAggregatesFilter<"User"> | string
+    profilePicUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    bio?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type ExperienceWhereInput = {
+    AND?: ExperienceWhereInput | ExperienceWhereInput[]
+    OR?: ExperienceWhereInput[]
+    NOT?: ExperienceWhereInput | ExperienceWhereInput[]
+    id?: StringFilter<"Experience"> | string
+    userId?: StringFilter<"Experience"> | string
+    title?: StringFilter<"Experience"> | string
+    type?: EnumExperienceTypeFilter<"Experience"> | $Enums.ExperienceType
+    description?: StringNullableFilter<"Experience"> | string | null
+    startDate?: DateTimeFilter<"Experience"> | Date | string
+    endDate?: DateTimeNullableFilter<"Experience"> | Date | string | null
+    createdAt?: DateTimeFilter<"Experience"> | Date | string
+    updatedAt?: DateTimeFilter<"Experience"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ExperienceOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    type?: SortOrder
+    description?: SortOrderInput | SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ExperienceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ExperienceWhereInput | ExperienceWhereInput[]
+    OR?: ExperienceWhereInput[]
+    NOT?: ExperienceWhereInput | ExperienceWhereInput[]
+    userId?: StringFilter<"Experience"> | string
+    title?: StringFilter<"Experience"> | string
+    type?: EnumExperienceTypeFilter<"Experience"> | $Enums.ExperienceType
+    description?: StringNullableFilter<"Experience"> | string | null
+    startDate?: DateTimeFilter<"Experience"> | Date | string
+    endDate?: DateTimeNullableFilter<"Experience"> | Date | string | null
+    createdAt?: DateTimeFilter<"Experience"> | Date | string
+    updatedAt?: DateTimeFilter<"Experience"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type ExperienceOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    type?: SortOrder
+    description?: SortOrderInput | SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ExperienceCountOrderByAggregateInput
+    _max?: ExperienceMaxOrderByAggregateInput
+    _min?: ExperienceMinOrderByAggregateInput
+  }
+
+  export type ExperienceScalarWhereWithAggregatesInput = {
+    AND?: ExperienceScalarWhereWithAggregatesInput | ExperienceScalarWhereWithAggregatesInput[]
+    OR?: ExperienceScalarWhereWithAggregatesInput[]
+    NOT?: ExperienceScalarWhereWithAggregatesInput | ExperienceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Experience"> | string
+    userId?: StringWithAggregatesFilter<"Experience"> | string
+    title?: StringWithAggregatesFilter<"Experience"> | string
+    type?: EnumExperienceTypeWithAggregatesFilter<"Experience"> | $Enums.ExperienceType
+    description?: StringNullableWithAggregatesFilter<"Experience"> | string | null
+    startDate?: DateTimeWithAggregatesFilter<"Experience"> | Date | string
+    endDate?: DateTimeNullableWithAggregatesFilter<"Experience"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Experience"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Experience"> | Date | string
   }
 
   export type CourseWhereInput = {
@@ -4713,8 +6116,11 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    profilePicUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    experiences?: ExperienceCreateNestedManyWithoutUserInput
     reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
     reviewsReceived?: ReviewCreateNestedManyWithoutRevieweeInput
   }
@@ -4724,8 +6130,11 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    profilePicUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
   }
@@ -4735,8 +6144,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    experiences?: ExperienceUpdateManyWithoutUserNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
     reviewsReceived?: ReviewUpdateManyWithoutRevieweeNestedInput
   }
@@ -4746,8 +6158,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     reviewsReceived?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
   }
@@ -4757,6 +6172,8 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    profilePicUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4766,6 +6183,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4775,6 +6194,91 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExperienceCreateInput = {
+    id?: string
+    title: string
+    type: $Enums.ExperienceType
+    description?: string | null
+    startDate: Date | string
+    endDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutExperiencesInput
+  }
+
+  export type ExperienceUncheckedCreateInput = {
+    id?: string
+    userId: string
+    title: string
+    type: $Enums.ExperienceType
+    description?: string | null
+    startDate: Date | string
+    endDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExperienceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutExperiencesNestedInput
+  }
+
+  export type ExperienceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExperienceCreateManyInput = {
+    id?: string
+    userId: string
+    title: string
+    type: $Enums.ExperienceType
+    description?: string | null
+    startDate: Date | string
+    endDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExperienceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExperienceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4900,6 +6404,21 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -4911,10 +6430,25 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type ExperienceListRelationFilter = {
+    every?: ExperienceWhereInput
+    some?: ExperienceWhereInput
+    none?: ExperienceWhereInput
+  }
+
   export type ReviewListRelationFilter = {
     every?: ReviewWhereInput
     some?: ReviewWhereInput
     none?: ReviewWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type ExperienceOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ReviewOrderByRelationAggregateInput = {
@@ -4926,6 +6460,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
+    profilePicUrl?: SortOrder
+    bio?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -4935,6 +6471,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
+    profilePicUrl?: SortOrder
+    bio?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -4944,6 +6482,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
+    profilePicUrl?: SortOrder
+    bio?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -4966,6 +6506,24 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -4978,6 +6536,89 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type EnumExperienceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExperienceTypeFilter<$PrismaModel> | $Enums.ExperienceType
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type ExperienceCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExperienceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExperienceMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumExperienceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExperienceTypeWithAggregatesFilter<$PrismaModel> | $Enums.ExperienceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumExperienceTypeFilter<$PrismaModel>
+    _max?: NestedEnumExperienceTypeFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type CourseCountOrderByAggregateInput = {
@@ -4995,21 +6636,6 @@ export namespace Prisma {
     name?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -5021,19 +6647,9 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
   export type CourseScalarRelationFilter = {
     is?: CourseWhereInput
     isNot?: CourseWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type ReviewCountOrderByAggregateInput = {
@@ -5074,24 +6690,6 @@ export namespace Prisma {
     rating?: SortOrder
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -5108,6 +6706,13 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type ExperienceCreateNestedManyWithoutUserInput = {
+    create?: XOR<ExperienceCreateWithoutUserInput, ExperienceUncheckedCreateWithoutUserInput> | ExperienceCreateWithoutUserInput[] | ExperienceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExperienceCreateOrConnectWithoutUserInput | ExperienceCreateOrConnectWithoutUserInput[]
+    createMany?: ExperienceCreateManyUserInputEnvelope
+    connect?: ExperienceWhereUniqueInput | ExperienceWhereUniqueInput[]
+  }
+
   export type ReviewCreateNestedManyWithoutReviewerInput = {
     create?: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput> | ReviewCreateWithoutReviewerInput[] | ReviewUncheckedCreateWithoutReviewerInput[]
     connectOrCreate?: ReviewCreateOrConnectWithoutReviewerInput | ReviewCreateOrConnectWithoutReviewerInput[]
@@ -5120,6 +6725,13 @@ export namespace Prisma {
     connectOrCreate?: ReviewCreateOrConnectWithoutRevieweeInput | ReviewCreateOrConnectWithoutRevieweeInput[]
     createMany?: ReviewCreateManyRevieweeInputEnvelope
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type ExperienceUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ExperienceCreateWithoutUserInput, ExperienceUncheckedCreateWithoutUserInput> | ExperienceCreateWithoutUserInput[] | ExperienceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExperienceCreateOrConnectWithoutUserInput | ExperienceCreateOrConnectWithoutUserInput[]
+    createMany?: ExperienceCreateManyUserInputEnvelope
+    connect?: ExperienceWhereUniqueInput | ExperienceWhereUniqueInput[]
   }
 
   export type ReviewUncheckedCreateNestedManyWithoutReviewerInput = {
@@ -5140,8 +6752,26 @@ export namespace Prisma {
     set?: string
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type ExperienceUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ExperienceCreateWithoutUserInput, ExperienceUncheckedCreateWithoutUserInput> | ExperienceCreateWithoutUserInput[] | ExperienceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExperienceCreateOrConnectWithoutUserInput | ExperienceCreateOrConnectWithoutUserInput[]
+    upsert?: ExperienceUpsertWithWhereUniqueWithoutUserInput | ExperienceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ExperienceCreateManyUserInputEnvelope
+    set?: ExperienceWhereUniqueInput | ExperienceWhereUniqueInput[]
+    disconnect?: ExperienceWhereUniqueInput | ExperienceWhereUniqueInput[]
+    delete?: ExperienceWhereUniqueInput | ExperienceWhereUniqueInput[]
+    connect?: ExperienceWhereUniqueInput | ExperienceWhereUniqueInput[]
+    update?: ExperienceUpdateWithWhereUniqueWithoutUserInput | ExperienceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ExperienceUpdateManyWithWhereWithoutUserInput | ExperienceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ExperienceScalarWhereInput | ExperienceScalarWhereInput[]
   }
 
   export type ReviewUpdateManyWithoutReviewerNestedInput = {
@@ -5172,6 +6802,20 @@ export namespace Prisma {
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
   }
 
+  export type ExperienceUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ExperienceCreateWithoutUserInput, ExperienceUncheckedCreateWithoutUserInput> | ExperienceCreateWithoutUserInput[] | ExperienceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExperienceCreateOrConnectWithoutUserInput | ExperienceCreateOrConnectWithoutUserInput[]
+    upsert?: ExperienceUpsertWithWhereUniqueWithoutUserInput | ExperienceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ExperienceCreateManyUserInputEnvelope
+    set?: ExperienceWhereUniqueInput | ExperienceWhereUniqueInput[]
+    disconnect?: ExperienceWhereUniqueInput | ExperienceWhereUniqueInput[]
+    delete?: ExperienceWhereUniqueInput | ExperienceWhereUniqueInput[]
+    connect?: ExperienceWhereUniqueInput | ExperienceWhereUniqueInput[]
+    update?: ExperienceUpdateWithWhereUniqueWithoutUserInput | ExperienceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ExperienceUpdateManyWithWhereWithoutUserInput | ExperienceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ExperienceScalarWhereInput | ExperienceScalarWhereInput[]
+  }
+
   export type ReviewUncheckedUpdateManyWithoutReviewerNestedInput = {
     create?: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput> | ReviewCreateWithoutReviewerInput[] | ReviewUncheckedCreateWithoutReviewerInput[]
     connectOrCreate?: ReviewCreateOrConnectWithoutReviewerInput | ReviewCreateOrConnectWithoutReviewerInput[]
@@ -5198,6 +6842,28 @@ export namespace Prisma {
     update?: ReviewUpdateWithWhereUniqueWithoutRevieweeInput | ReviewUpdateWithWhereUniqueWithoutRevieweeInput[]
     updateMany?: ReviewUpdateManyWithWhereWithoutRevieweeInput | ReviewUpdateManyWithWhereWithoutRevieweeInput[]
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutExperiencesInput = {
+    create?: XOR<UserCreateWithoutExperiencesInput, UserUncheckedCreateWithoutExperiencesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutExperiencesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumExperienceTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ExperienceType
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type UserUpdateOneRequiredWithoutExperiencesNestedInput = {
+    create?: XOR<UserCreateWithoutExperiencesInput, UserUncheckedCreateWithoutExperiencesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutExperiencesInput
+    upsert?: UserUpsertWithoutExperiencesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutExperiencesInput, UserUpdateWithoutExperiencesInput>, UserUncheckedUpdateWithoutExperiencesInput>
   }
 
   export type ReviewCreateNestedManyWithoutCourseInput = {
@@ -5260,10 +6926,6 @@ export namespace Prisma {
     connect?: CourseWhereUniqueInput
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -5310,6 +6972,20 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5349,34 +7025,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -5405,6 +7053,62 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumExperienceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExperienceTypeFilter<$PrismaModel> | $Enums.ExperienceType
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedEnumExperienceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExperienceTypeWithAggregatesFilter<$PrismaModel> | $Enums.ExperienceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumExperienceTypeFilter<$PrismaModel>
+    _max?: NestedEnumExperienceTypeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -5430,6 +7134,38 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type ExperienceCreateWithoutUserInput = {
+    id?: string
+    title: string
+    type: $Enums.ExperienceType
+    description?: string | null
+    startDate: Date | string
+    endDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExperienceUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    type: $Enums.ExperienceType
+    description?: string | null
+    startDate: Date | string
+    endDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExperienceCreateOrConnectWithoutUserInput = {
+    where: ExperienceWhereUniqueInput
+    create: XOR<ExperienceCreateWithoutUserInput, ExperienceUncheckedCreateWithoutUserInput>
+  }
+
+  export type ExperienceCreateManyUserInputEnvelope = {
+    data: ExperienceCreateManyUserInput | ExperienceCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type ReviewCreateWithoutReviewerInput = {
@@ -5488,6 +7224,37 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ExperienceUpsertWithWhereUniqueWithoutUserInput = {
+    where: ExperienceWhereUniqueInput
+    update: XOR<ExperienceUpdateWithoutUserInput, ExperienceUncheckedUpdateWithoutUserInput>
+    create: XOR<ExperienceCreateWithoutUserInput, ExperienceUncheckedCreateWithoutUserInput>
+  }
+
+  export type ExperienceUpdateWithWhereUniqueWithoutUserInput = {
+    where: ExperienceWhereUniqueInput
+    data: XOR<ExperienceUpdateWithoutUserInput, ExperienceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ExperienceUpdateManyWithWhereWithoutUserInput = {
+    where: ExperienceScalarWhereInput
+    data: XOR<ExperienceUpdateManyMutationInput, ExperienceUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ExperienceScalarWhereInput = {
+    AND?: ExperienceScalarWhereInput | ExperienceScalarWhereInput[]
+    OR?: ExperienceScalarWhereInput[]
+    NOT?: ExperienceScalarWhereInput | ExperienceScalarWhereInput[]
+    id?: StringFilter<"Experience"> | string
+    userId?: StringFilter<"Experience"> | string
+    title?: StringFilter<"Experience"> | string
+    type?: EnumExperienceTypeFilter<"Experience"> | $Enums.ExperienceType
+    description?: StringNullableFilter<"Experience"> | string | null
+    startDate?: DateTimeFilter<"Experience"> | Date | string
+    endDate?: DateTimeNullableFilter<"Experience"> | Date | string | null
+    createdAt?: DateTimeFilter<"Experience"> | Date | string
+    updatedAt?: DateTimeFilter<"Experience"> | Date | string
+  }
+
   export type ReviewUpsertWithWhereUniqueWithoutReviewerInput = {
     where: ReviewWhereUniqueInput
     update: XOR<ReviewUpdateWithoutReviewerInput, ReviewUncheckedUpdateWithoutReviewerInput>
@@ -5531,6 +7298,74 @@ export namespace Prisma {
   export type ReviewUpdateManyWithWhereWithoutRevieweeInput = {
     where: ReviewScalarWhereInput
     data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutRevieweeInput>
+  }
+
+  export type UserCreateWithoutExperiencesInput = {
+    id?: string
+    name: string
+    email: string
+    passwordHash: string
+    profilePicUrl?: string | null
+    bio?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewCreateNestedManyWithoutRevieweeInput
+  }
+
+  export type UserUncheckedCreateWithoutExperiencesInput = {
+    id?: string
+    name: string
+    email: string
+    passwordHash: string
+    profilePicUrl?: string | null
+    bio?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+  }
+
+  export type UserCreateOrConnectWithoutExperiencesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutExperiencesInput, UserUncheckedCreateWithoutExperiencesInput>
+  }
+
+  export type UserUpsertWithoutExperiencesInput = {
+    update: XOR<UserUpdateWithoutExperiencesInput, UserUncheckedUpdateWithoutExperiencesInput>
+    create: XOR<UserCreateWithoutExperiencesInput, UserUncheckedCreateWithoutExperiencesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutExperiencesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutExperiencesInput, UserUncheckedUpdateWithoutExperiencesInput>
+  }
+
+  export type UserUpdateWithoutExperiencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUpdateManyWithoutRevieweeNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutExperiencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
   }
 
   export type ReviewCreateWithoutCourseInput = {
@@ -5582,8 +7417,11 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    profilePicUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    experiences?: ExperienceCreateNestedManyWithoutUserInput
     reviewsReceived?: ReviewCreateNestedManyWithoutRevieweeInput
   }
 
@@ -5592,8 +7430,11 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    profilePicUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput
     reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
   }
 
@@ -5607,8 +7448,11 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    profilePicUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    experiences?: ExperienceCreateNestedManyWithoutUserInput
     reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
   }
 
@@ -5617,8 +7461,11 @@ export namespace Prisma {
     name: string
     email: string
     passwordHash: string
+    profilePicUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
   }
 
@@ -5658,8 +7505,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    experiences?: ExperienceUpdateManyWithoutUserNestedInput
     reviewsReceived?: ReviewUpdateManyWithoutRevieweeNestedInput
   }
 
@@ -5668,8 +7518,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput
     reviewsReceived?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
   }
 
@@ -5689,8 +7542,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    experiences?: ExperienceUpdateManyWithoutUserNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
   }
 
@@ -5699,8 +7555,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
@@ -5725,6 +7584,17 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
   }
 
+  export type ExperienceCreateManyUserInput = {
+    id?: string
+    title: string
+    type: $Enums.ExperienceType
+    description?: string | null
+    startDate: Date | string
+    endDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ReviewCreateManyReviewerInput = {
     id?: string
     revieweeId: string
@@ -5741,6 +7611,39 @@ export namespace Prisma {
     comment?: string | null
     rating: number
     createdAt?: Date | string
+  }
+
+  export type ExperienceUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExperienceUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExperienceUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReviewUpdateWithoutReviewerInput = {

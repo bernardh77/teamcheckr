@@ -8,6 +8,7 @@ export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const errors = {
     email: (!form.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) && submitted,
@@ -22,6 +23,8 @@ export default function LoginPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitted(true);
+    setLoginError(""); // Clear previous error
+
     const res = await fetch("/api/login", {
       method: "POST",
       body: JSON.stringify(form),
@@ -35,7 +38,7 @@ export default function LoginPage() {
     if (result.success) {
       window.location.href = "/home";
     } else {
-      alert(result.error || "Login failed");
+      setLoginError(result.error || "Invalid credentials");
     }
   }
 
@@ -82,6 +85,9 @@ export default function LoginPage() {
             {showPassword ? "Hide" : "Show"}
           </button>
           {errors.password && <p className="text-[#F76C6C] text-xs mt-1">Password is required.</p>}
+          {loginError && (
+            <p className="text-[#F76C6C] text-sm mt-2">{loginError}</p>
+          )}
         </div>
         <button
           type="submit"
