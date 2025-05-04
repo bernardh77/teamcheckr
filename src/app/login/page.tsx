@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+// import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+  // const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -17,11 +19,23 @@ export default function LoginPage() {
     setForm((f) => ({ ...f, [name]: value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitted(true);
-    if (Object.values(errors).every((v) => !v)) {
-      alert("Logged in! (No backend yet)");
+    const res = await fetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify(form),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      window.location.href = "/home";
+    } else {
+      alert(result.error || "Login failed");
     }
   }
 

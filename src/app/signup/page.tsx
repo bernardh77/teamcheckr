@@ -55,11 +55,34 @@ export default function SignUpPage() {
     setTouched((t) => ({ ...t, [e.target.name]: true }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitted(true);
     if (Object.values(errors).every((v) => !v)) {
-      alert("Account created! (No backend yet)");
+      try {
+        const res = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            password: form.password,
+          }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          // Success: show a message or redirect
+        //   alert('Account created! You can now log in.');
+          // Optionally redirect: window.location.href = '/login';
+          window.location.href = '/home';
+        } else {
+          // Show backend error (e.g., email already in use)
+          alert(data.error || 'Signup failed');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Something went wrong. Please try again.');
+      }
     }
   }
 
