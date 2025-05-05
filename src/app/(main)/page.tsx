@@ -85,7 +85,7 @@ export default function Home() {
           </div>
           {/* Testimonial 2 */}
           <div className="bg-[#F8FAFC] rounded-2xl shadow p-8 flex flex-col items-center text-center">
-            <Image src={`https://api.dicebear.com/7.x/notionists/svg?seed=nickwijaya`} alt="Nick Wijaya" width={80} height={80} className="w-20 h-20 rounded-full mb-4" unoptimized />
+            <Image src={`https://api.dicebear.com/7.x/notionists/svg?seed=nick`} alt="Nick Wijaya" width={80} height={80} className="w-20 h-20 rounded-full mb-4" unoptimized />
             <h3 className="font-bold text-lg text-[#2C3333] mb-1">Nick Wijaya</h3>
             <p className="text-[#395B64] text-sm mb-0">Computer Science Student</p>
             <p className="text-[#395B64] text-sm mb-2">Swinburne University</p>

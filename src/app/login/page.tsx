@@ -1,11 +1,14 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+// import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+  // const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const errors = {
     email: (!form.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) && submitted,
@@ -17,18 +20,32 @@ export default function LoginPage() {
     setForm((f) => ({ ...f, [name]: value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitted(true);
-    if (Object.values(errors).every((v) => !v)) {
-      alert("Logged in! (No backend yet)");
+    setLoginError(""); // Clear previous error
+
+    const res = await fetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify(form),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      window.location.href = "/home";
+    } else {
+      setLoginError(result.error || "Invalid credentials");
     }
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-[#2C3333] py-12 px-2">
+    <main className="min-h-screen w-full flex items-center justify-center bg-[#2C3333] py-12 px-4">
       <form
-        className="bg-white rounded-2xl shadow-lg px-8 py-10 w-full max-w-md mx-auto"
+        className="bg-white rounded-2xl shadow-lg px-6 py-8 w-full max-w-[450px] mx-auto mt-16"
         onSubmit={handleSubmit}
         noValidate
       >
@@ -61,13 +78,16 @@ export default function LoginPage() {
           />
           <button
             type="button"
-            className="absolute right-3 top-9 text-sm text-[#395B64]"
+            className="absolute right-2 top-10 text-sm text-[#395B64]"
             tabIndex={-1}
             onClick={() => setShowPassword((v) => !v)}
           >
             {showPassword ? "Hide" : "Show"}
           </button>
           {errors.password && <p className="text-[#F76C6C] text-xs mt-1">Password is required.</p>}
+          {loginError && (
+            <p className="text-[#F76C6C] text-sm mt-2">{loginError}</p>
+          )}
         </div>
         <button
           type="submit"

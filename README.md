@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TeamCheckr
 
-## Getting Started
+A modern, mobile-first platform to help university students find and review groupmates. Built with Next.js, Tailwind CSS, Prisma, and PostgreSQL.
 
-First, run the development server:
+## Features
+- Responsive landing page, signup, login, and forgot password flows
+- Modern UI with Tailwind CSS
+- User authentication with hashed passwords
+- PostgreSQL database via Prisma ORM
 
+## Requirements
+- Node.js (v18+ recommended)
+- PostgreSQL (running locally or remotely)
+
+## Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd teamcheckr
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+   > See `requirements.txt` for a list of main Node.js dependencies (for reference).
+
+3. **Set up your environment variables:**
+   - Copy `.env.example` to `.env` and fill in your PostgreSQL connection string:
+     ```env
+     DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+     ```
+
+4. **Set up the database:**
+   ```bash
+   npx prisma migrate dev --name init
+   ```
+   This will create the database tables as defined in `prisma/schema.prisma`.
+
+5. **Start the development server:**
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   ```
+   The app will be available at [http://localhost:3000](http://localhost:3000).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Useful Scripts
+- `npx prisma studio` — Open Prisma Studio to view and edit your database in the browser.
+- `npx prisma generate` — Regenerate Prisma client after changing the schema.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Main Dependencies
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Prisma](https://www.prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs) (for password hashing)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+MIT
