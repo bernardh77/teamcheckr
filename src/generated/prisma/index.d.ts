@@ -2420,10 +2420,14 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     title: string | null
-    type: $Enums.ExperienceType | null
-    description: string | null
+    company: string | null
+    type: string | null
+    logoUrl: string | null
+    location: string | null
     startDate: Date | null
     endDate: Date | null
+    isCurrent: boolean | null
+    duration: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2432,10 +2436,14 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     title: string | null
-    type: $Enums.ExperienceType | null
-    description: string | null
+    company: string | null
+    type: string | null
+    logoUrl: string | null
+    location: string | null
     startDate: Date | null
     endDate: Date | null
+    isCurrent: boolean | null
+    duration: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2444,10 +2452,14 @@ export namespace Prisma {
     id: number
     userId: number
     title: number
+    company: number
     type: number
-    description: number
+    logoUrl: number
+    location: number
     startDate: number
     endDate: number
+    isCurrent: number
+    duration: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2458,10 +2470,14 @@ export namespace Prisma {
     id?: true
     userId?: true
     title?: true
+    company?: true
     type?: true
-    description?: true
+    logoUrl?: true
+    location?: true
     startDate?: true
     endDate?: true
+    isCurrent?: true
+    duration?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2470,10 +2486,14 @@ export namespace Prisma {
     id?: true
     userId?: true
     title?: true
+    company?: true
     type?: true
-    description?: true
+    logoUrl?: true
+    location?: true
     startDate?: true
     endDate?: true
+    isCurrent?: true
+    duration?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2482,10 +2502,14 @@ export namespace Prisma {
     id?: true
     userId?: true
     title?: true
+    company?: true
     type?: true
-    description?: true
+    logoUrl?: true
+    location?: true
     startDate?: true
     endDate?: true
+    isCurrent?: true
+    duration?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2567,10 +2591,14 @@ export namespace Prisma {
     id: string
     userId: string
     title: string
-    type: $Enums.ExperienceType
-    description: string | null
+    company: string
+    type: string
+    logoUrl: string
+    location: string
     startDate: Date
     endDate: Date | null
+    isCurrent: boolean
+    duration: string
     createdAt: Date
     updatedAt: Date
     _count: ExperienceCountAggregateOutputType | null
@@ -2596,10 +2624,14 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    company?: boolean
     type?: boolean
-    description?: boolean
+    logoUrl?: boolean
+    location?: boolean
     startDate?: boolean
     endDate?: boolean
+    isCurrent?: boolean
+    duration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2609,10 +2641,14 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    company?: boolean
     type?: boolean
-    description?: boolean
+    logoUrl?: boolean
+    location?: boolean
     startDate?: boolean
     endDate?: boolean
+    isCurrent?: boolean
+    duration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2622,10 +2658,14 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    company?: boolean
     type?: boolean
-    description?: boolean
+    logoUrl?: boolean
+    location?: boolean
     startDate?: boolean
     endDate?: boolean
+    isCurrent?: boolean
+    duration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2635,15 +2675,19 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     title?: boolean
+    company?: boolean
     type?: boolean
-    description?: boolean
+    logoUrl?: boolean
+    location?: boolean
     startDate?: boolean
     endDate?: boolean
+    isCurrent?: boolean
+    duration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ExperienceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "type" | "description" | "startDate" | "endDate" | "createdAt" | "updatedAt", ExtArgs["result"]["experience"]>
+  export type ExperienceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "company" | "type" | "logoUrl" | "location" | "startDate" | "endDate" | "isCurrent" | "duration" | "createdAt" | "updatedAt", ExtArgs["result"]["experience"]>
   export type ExperienceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2663,10 +2707,14 @@ export namespace Prisma {
       id: string
       userId: string
       title: string
-      type: $Enums.ExperienceType
-      description: string | null
+      company: string
+      type: string
+      logoUrl: string
+      location: string
       startDate: Date
       endDate: Date | null
+      isCurrent: boolean
+      duration: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["experience"]>
@@ -3096,10 +3144,14 @@ export namespace Prisma {
     readonly id: FieldRef<"Experience", 'String'>
     readonly userId: FieldRef<"Experience", 'String'>
     readonly title: FieldRef<"Experience", 'String'>
-    readonly type: FieldRef<"Experience", 'ExperienceType'>
-    readonly description: FieldRef<"Experience", 'String'>
+    readonly company: FieldRef<"Experience", 'String'>
+    readonly type: FieldRef<"Experience", 'String'>
+    readonly logoUrl: FieldRef<"Experience", 'String'>
+    readonly location: FieldRef<"Experience", 'String'>
     readonly startDate: FieldRef<"Experience", 'DateTime'>
     readonly endDate: FieldRef<"Experience", 'DateTime'>
+    readonly isCurrent: FieldRef<"Experience", 'Boolean'>
+    readonly duration: FieldRef<"Experience", 'String'>
     readonly createdAt: FieldRef<"Experience", 'DateTime'>
     readonly updatedAt: FieldRef<"Experience", 'DateTime'>
   }
@@ -5713,10 +5765,14 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     title: 'title',
+    company: 'company',
     type: 'type',
-    description: 'description',
+    logoUrl: 'logoUrl',
+    location: 'location',
     startDate: 'startDate',
     endDate: 'endDate',
+    isCurrent: 'isCurrent',
+    duration: 'duration',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -5803,16 +5859,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'ExperienceType'
+   * Reference to a field of type 'Boolean'
    */
-  export type EnumExperienceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceType'>
-    
-
-
-  /**
-   * Reference to a field of type 'ExperienceType[]'
-   */
-  export type ListEnumExperienceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceType[]'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -5930,10 +5979,14 @@ export namespace Prisma {
     id?: StringFilter<"Experience"> | string
     userId?: StringFilter<"Experience"> | string
     title?: StringFilter<"Experience"> | string
-    type?: EnumExperienceTypeFilter<"Experience"> | $Enums.ExperienceType
-    description?: StringNullableFilter<"Experience"> | string | null
+    company?: StringFilter<"Experience"> | string
+    type?: StringFilter<"Experience"> | string
+    logoUrl?: StringFilter<"Experience"> | string
+    location?: StringFilter<"Experience"> | string
     startDate?: DateTimeFilter<"Experience"> | Date | string
     endDate?: DateTimeNullableFilter<"Experience"> | Date | string | null
+    isCurrent?: BoolFilter<"Experience"> | boolean
+    duration?: StringFilter<"Experience"> | string
     createdAt?: DateTimeFilter<"Experience"> | Date | string
     updatedAt?: DateTimeFilter<"Experience"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -5943,10 +5996,14 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    company?: SortOrder
     type?: SortOrder
-    description?: SortOrderInput | SortOrder
+    logoUrl?: SortOrder
+    location?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrderInput | SortOrder
+    isCurrent?: SortOrder
+    duration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -5959,10 +6016,14 @@ export namespace Prisma {
     NOT?: ExperienceWhereInput | ExperienceWhereInput[]
     userId?: StringFilter<"Experience"> | string
     title?: StringFilter<"Experience"> | string
-    type?: EnumExperienceTypeFilter<"Experience"> | $Enums.ExperienceType
-    description?: StringNullableFilter<"Experience"> | string | null
+    company?: StringFilter<"Experience"> | string
+    type?: StringFilter<"Experience"> | string
+    logoUrl?: StringFilter<"Experience"> | string
+    location?: StringFilter<"Experience"> | string
     startDate?: DateTimeFilter<"Experience"> | Date | string
     endDate?: DateTimeNullableFilter<"Experience"> | Date | string | null
+    isCurrent?: BoolFilter<"Experience"> | boolean
+    duration?: StringFilter<"Experience"> | string
     createdAt?: DateTimeFilter<"Experience"> | Date | string
     updatedAt?: DateTimeFilter<"Experience"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -5972,10 +6033,14 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    company?: SortOrder
     type?: SortOrder
-    description?: SortOrderInput | SortOrder
+    logoUrl?: SortOrder
+    location?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrderInput | SortOrder
+    isCurrent?: SortOrder
+    duration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ExperienceCountOrderByAggregateInput
@@ -5990,10 +6055,14 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Experience"> | string
     userId?: StringWithAggregatesFilter<"Experience"> | string
     title?: StringWithAggregatesFilter<"Experience"> | string
-    type?: EnumExperienceTypeWithAggregatesFilter<"Experience"> | $Enums.ExperienceType
-    description?: StringNullableWithAggregatesFilter<"Experience"> | string | null
+    company?: StringWithAggregatesFilter<"Experience"> | string
+    type?: StringWithAggregatesFilter<"Experience"> | string
+    logoUrl?: StringWithAggregatesFilter<"Experience"> | string
+    location?: StringWithAggregatesFilter<"Experience"> | string
     startDate?: DateTimeWithAggregatesFilter<"Experience"> | Date | string
     endDate?: DateTimeNullableWithAggregatesFilter<"Experience"> | Date | string | null
+    isCurrent?: BoolWithAggregatesFilter<"Experience"> | boolean
+    duration?: StringWithAggregatesFilter<"Experience"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Experience"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Experience"> | Date | string
   }
@@ -6203,10 +6272,14 @@ export namespace Prisma {
   export type ExperienceCreateInput = {
     id?: string
     title: string
-    type: $Enums.ExperienceType
-    description?: string | null
+    company: string
+    type: string
+    logoUrl: string
+    location: string
     startDate: Date | string
     endDate?: Date | string | null
+    isCurrent?: boolean
+    duration: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutExperiencesInput
@@ -6216,10 +6289,14 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
-    type: $Enums.ExperienceType
-    description?: string | null
+    company: string
+    type: string
+    logoUrl: string
+    location: string
     startDate: Date | string
     endDate?: Date | string | null
+    isCurrent?: boolean
+    duration: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6227,10 +6304,14 @@ export namespace Prisma {
   export type ExperienceUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    logoUrl?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isCurrent?: BoolFieldUpdateOperationsInput | boolean
+    duration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutExperiencesNestedInput
@@ -6240,10 +6321,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    logoUrl?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isCurrent?: BoolFieldUpdateOperationsInput | boolean
+    duration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6252,10 +6337,14 @@ export namespace Prisma {
     id?: string
     userId: string
     title: string
-    type: $Enums.ExperienceType
-    description?: string | null
+    company: string
+    type: string
+    logoUrl: string
+    location: string
     startDate: Date | string
     endDate?: Date | string | null
+    isCurrent?: boolean
+    duration: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6263,10 +6352,14 @@ export namespace Prisma {
   export type ExperienceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    logoUrl?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isCurrent?: BoolFieldUpdateOperationsInput | boolean
+    duration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6275,10 +6368,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    logoUrl?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isCurrent?: BoolFieldUpdateOperationsInput | boolean
+    duration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6538,13 +6635,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EnumExperienceTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumExperienceTypeFilter<$PrismaModel> | $Enums.ExperienceType
-  }
-
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -6556,6 +6646,11 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -6565,10 +6660,14 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    company?: SortOrder
     type?: SortOrder
-    description?: SortOrder
+    logoUrl?: SortOrder
+    location?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    isCurrent?: SortOrder
+    duration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6577,10 +6676,14 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    company?: SortOrder
     type?: SortOrder
-    description?: SortOrder
+    logoUrl?: SortOrder
+    location?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    isCurrent?: SortOrder
+    duration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6589,22 +6692,16 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     title?: SortOrder
+    company?: SortOrder
     type?: SortOrder
-    description?: SortOrder
+    logoUrl?: SortOrder
+    location?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    isCurrent?: SortOrder
+    duration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type EnumExperienceTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumExperienceTypeWithAggregatesFilter<$PrismaModel> | $Enums.ExperienceType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumExperienceTypeFilter<$PrismaModel>
-    _max?: NestedEnumExperienceTypeFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6619,6 +6716,14 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type CourseCountOrderByAggregateInput = {
@@ -6850,12 +6955,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type EnumExperienceTypeFieldUpdateOperationsInput = {
-    set?: $Enums.ExperienceType
-  }
-
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type UserUpdateOneRequiredWithoutExperiencesNestedInput = {
@@ -7067,13 +7172,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedEnumExperienceTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumExperienceTypeFilter<$PrismaModel> | $Enums.ExperienceType
-  }
-
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -7085,14 +7183,9 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type NestedEnumExperienceTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumExperienceTypeWithAggregatesFilter<$PrismaModel> | $Enums.ExperienceType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumExperienceTypeFilter<$PrismaModel>
-    _max?: NestedEnumExperienceTypeFilter<$PrismaModel>
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7107,6 +7200,14 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -7139,10 +7240,14 @@ export namespace Prisma {
   export type ExperienceCreateWithoutUserInput = {
     id?: string
     title: string
-    type: $Enums.ExperienceType
-    description?: string | null
+    company: string
+    type: string
+    logoUrl: string
+    location: string
     startDate: Date | string
     endDate?: Date | string | null
+    isCurrent?: boolean
+    duration: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7150,10 +7255,14 @@ export namespace Prisma {
   export type ExperienceUncheckedCreateWithoutUserInput = {
     id?: string
     title: string
-    type: $Enums.ExperienceType
-    description?: string | null
+    company: string
+    type: string
+    logoUrl: string
+    location: string
     startDate: Date | string
     endDate?: Date | string | null
+    isCurrent?: boolean
+    duration: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7247,10 +7356,14 @@ export namespace Prisma {
     id?: StringFilter<"Experience"> | string
     userId?: StringFilter<"Experience"> | string
     title?: StringFilter<"Experience"> | string
-    type?: EnumExperienceTypeFilter<"Experience"> | $Enums.ExperienceType
-    description?: StringNullableFilter<"Experience"> | string | null
+    company?: StringFilter<"Experience"> | string
+    type?: StringFilter<"Experience"> | string
+    logoUrl?: StringFilter<"Experience"> | string
+    location?: StringFilter<"Experience"> | string
     startDate?: DateTimeFilter<"Experience"> | Date | string
     endDate?: DateTimeNullableFilter<"Experience"> | Date | string | null
+    isCurrent?: BoolFilter<"Experience"> | boolean
+    duration?: StringFilter<"Experience"> | string
     createdAt?: DateTimeFilter<"Experience"> | Date | string
     updatedAt?: DateTimeFilter<"Experience"> | Date | string
   }
@@ -7587,10 +7700,14 @@ export namespace Prisma {
   export type ExperienceCreateManyUserInput = {
     id?: string
     title: string
-    type: $Enums.ExperienceType
-    description?: string | null
+    company: string
+    type: string
+    logoUrl: string
+    location: string
     startDate: Date | string
     endDate?: Date | string | null
+    isCurrent?: boolean
+    duration: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7616,10 +7733,14 @@ export namespace Prisma {
   export type ExperienceUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    logoUrl?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isCurrent?: BoolFieldUpdateOperationsInput | boolean
+    duration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7627,10 +7748,14 @@ export namespace Prisma {
   export type ExperienceUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    logoUrl?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isCurrent?: BoolFieldUpdateOperationsInput | boolean
+    duration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7638,10 +7763,14 @@ export namespace Prisma {
   export type ExperienceUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    logoUrl?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isCurrent?: BoolFieldUpdateOperationsInput | boolean
+    duration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

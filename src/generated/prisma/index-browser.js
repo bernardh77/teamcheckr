@@ -135,10 +135,14 @@ exports.Prisma.ExperienceScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   title: 'title',
+  company: 'company',
   type: 'type',
-  description: 'description',
+  logoUrl: 'logoUrl',
+  location: 'location',
   startDate: 'startDate',
   endDate: 'endDate',
+  isCurrent: 'isCurrent',
+  duration: 'duration',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -172,13 +176,7 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.ExperienceType = exports.$Enums.ExperienceType = {
-  JOB: 'JOB',
-  PROJECT: 'PROJECT',
-  INTERNSHIP: 'INTERNSHIP',
-  VOLUNTEER: 'VOLUNTEER',
-  OTHER: 'OTHER'
-};
+
 
 exports.Prisma.ModelName = {
   User: 'User',

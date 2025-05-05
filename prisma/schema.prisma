@@ -34,10 +34,14 @@ model Experience {
   user        User     @relation(fields: [userId], references: [id])
   userId      String
   title       String
-  type        ExperienceType
-  description String?
+  company     String
+  type        String
+  logoUrl     String
+  location    String
   startDate   DateTime
   endDate     DateTime?
+  isCurrent   Boolean  @default(false)
+  duration    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
