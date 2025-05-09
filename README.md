@@ -1,6 +1,6 @@
 # TeamCheckr
 
-A modern, mobile-first platform to help university students find and review groupmates. Built with Next.js, Tailwind CSS, Prisma, and PostgreSQL.
+A platform to help university students find and review groupmates. Built with Next.js, Tailwind CSS, Prisma, and PostgreSQL.
 
 ## Features
 - Responsive landing page, signup, login, and forgot password flows
